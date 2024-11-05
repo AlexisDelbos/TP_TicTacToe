@@ -9,23 +9,20 @@ body {
     
   }
 
-
-
   h1{
     color: black;
     font-size: xx-large;
   }
-  #Grille {
+  #game-grid {
     display: inline-block;
     background-color: black;
     margin: 0 auto;
     padding: 10px;
   }
   
-  #Grille div {
+  #game-grid__square {
     margin: 0 auto;
     overflow: hidden;
-
   }
   
   #Grille button {
