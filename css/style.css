@@ -1,82 +1,99 @@
-body {
-    text-align: center;
-  }
-  .open_rules{
-    border-radius: 20px;
-    background-color: green;
-    font-size: 30px;
-    
-  }
+body {  
+  font-family: 'Poppins', sans-serif;
+  color: #000000;
+}
+
+h1 {
+  text-align: center;
+}
+
+#game-grid {
+  margin-left: auto;
+  margin-right: auto;
+  width: 375px;
+  height: 375px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+}
+
+.game-grid__square {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #D3D3D3;
+  background-color: #F5F5F5;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-grid__square:hover {
+  background-color: #FFFFE0;
+}
+
+#restartButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+  width: 150px;
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 40px;
+  font-size: 18px;
+}
+
+#restartButton:hover {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+.open_rules {
+  border-radius: 20px;
+  background-color: green;
+  font-size: 30px;
+
+}
 
 
+#StatusGame {
+  color: white;
+  background: black;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 21px;
+}
 
-  h1{
-    color: black;
-    font-size: xx-large;
-  }
-  #Grille {
-    display: inline-block;
-    background-color: black;
-    margin: 0 auto;
-    padding: 10px;
-  }
-  
-  #Grille div {
-    margin: 0 auto;
-    overflow: hidden;
+.player-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  }
-  
-  #Grille button {
-    background-size: cover ;        
-    width: 130px;
-    height: 130px;
-    font-weight: bold;
-    font-size: 50px;
-    margin: 5px;
-    float:left;
-  }
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px;
+}
 
-  
-  
-  #StatusGame {
-    color: white;
-    background: black;
-    padding: 20px 0;
-    text-align: center;
-    font-size: 21px;
-  }
-  
-  .player-container {
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-  }
-  
-  .player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 15px;
-  }
-  
-  .player-img {
-    width: 80px; 
-    height: 80px; 
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .player-name {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  
-  .vs {
-    font-size: 30px;
-    color: gold;
-    font-weight: bold;
-    margin: 0 20px;
-    text-align: center;
-  }
-  
+.player-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.player-name {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.vs {
+  font-size: 30px;
+  color: gold;
+  font-weight: bold;
+  margin: 0 20px;
+  text-align: center;
+}
