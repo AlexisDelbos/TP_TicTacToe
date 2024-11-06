@@ -57,7 +57,7 @@ function isCellEmpty(index) {
 
 // Fonction pour l'IA (choix aléatoire parmi les cases vides)
 function aiMove() {
-    
+
   const emptyCells = [];
   for (let i = 0; i < squares.length; i++) {
     if (isCellEmpty(i)) {
