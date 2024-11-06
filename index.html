@@ -4,44 +4,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Morpion</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-
   <div id="tuto_game">
     <button class="open_rules" onclick="openRules()">💬</button>
   </div>
 
   <h1>Le jeu du morpion</h1>
   <section id="game-grid">
-    <div class="game-grid__square" id="square0"></div>
-    <div class="game-grid__square" id="square1"></div>
-    <div class="game-grid__square" id="square2"></div>
-    <div class="game-grid__square" id="square3"></div>
-    <div class="game-grid__square" id="square4"></div>
-    <div class="game-grid__square" id="square5"></div>
-    <div class="game-grid__square" id="square6"></div>
-    <div class="game-grid__square" id="square7"></div>
-    <div class="game-grid__square" id="square8"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
+    <div class="game-grid__square"></div>
   </section>
+
+    <div id="endGame">
+      <input type="button" value="Restart" id="restartButton" onclick="restartButton()" />
+    </div>
 
     <div id="StatusGame">
       <div class="player-container">
         <div class="player">
-          <img src="/TP_TicTacToe/assets/Nebula.jpg   " alt="Chevalier Igrit" class="player-img">
+          <img src="/assets/R.jfif" alt="Chevalier Igrit" class="player-img">
           <span class="player-name">Chevalier Igrit</span>
         </div>
         <span class="vs">VS</span>
         <div class="player">
-          <img src="assets/Dyson-sphere.jpg" alt="Monarque des Ombres" class="player-img">
+          <img src="/assets/R.jfif" alt="Monarque des Ombres" class="player-img">
           <span class="player-name">Monarque des Ombres</span>
         </div>
       </div>
     </div>
+    </div>
 
-  </div>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
