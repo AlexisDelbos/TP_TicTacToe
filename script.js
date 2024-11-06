@@ -126,7 +126,7 @@ function checkWin(currentPlayer) {
 
 
 
-
+/*
 
 // Initialise les scores et le compteur d'égalités à zéro lors de la première partie :
 if (!localStorage.getItem("scorePlayer1")){
@@ -171,3 +171,4 @@ if (!localStorage.getItem("scoreDraw")){
 //bouton reset score
     let buttonScore = document.querySelector("#score");
     buttonScore.addEventListener("click",resetScore);
+*/
