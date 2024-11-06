@@ -1,54 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
+  <body>
+    <header id="header">
+      <h1 id="header__title"><a href="/">LE JEU DU MORPION</a></h1>
+      <div id="header__btn_play" class="header__btn_play">Jouer</div>
+    </header>
 
-<body>
-
-  <div id="tuto_game">
-    <button class="open_rules" onclick="openRules()">💬</button>
-  </div>
-
-  <h1>Le jeu du morpion</h1>
-  <div id="Grille">
-    <div>
-      <button></button>
-      <button></button>
-      <button></button>
-    </div>
-    <div>
-      <button></button>
-      <button></button>
-      <button></button>
-    </div>
-    <div>
-      <button></button>
-      <button></button>
-      <button></button>
-    </div>
-
-    <div id="StatusGame">
-      <div class="player-container">
-        <div class="player">
-          <img src="/assets/R.jfif" alt="Chevalier Igrit" class="player-img">
-          <span class="player-name">Chevalier Igrit</span>
+    <main id="main" style="display: none">
+      <section class="main__choice-game main__section">
+        <h2 class="main__choice-title">Choissisez le mode de jeu</h2>
+        <div class="main__choice-mode">
+          <h3 class="main__choice-mode-title">3x3</h3>
+          <img src="" alt="" />
         </div>
-        <span class="vs">VS</span>
-        <div class="player">
-          <img src="/assets/R.jfif" alt="Monarque des Ombres" class="player-img">
-          <span class="player-name">Monarque des Ombres</span>
+        <div class="main__choice-mode">
+          <h3 class="main__choice-mode-title">4x4</h3>
+          <img src="" alt="" />
         </div>
-      </div>
-    </div>
+        <div class="main__choice-mode">
+          <h3 class="main__choice-mode-title">5x5</h3>
+          <img src="" alt="" />
+        </div>
+        <div class="main__choice-mode">
+          <h3 class="main__choice-mode-title">6x6</h3>
+          <img src="" alt="" />
+        </div>
+        <div class="main__choice-mode">
+          <h3 class="main__choice-mode-title">7x7</h3>
+          <img src="" alt="" />
+        </div>
+        <div class="main__choice-mode">
+          <h3 class="main__choice-mode-title">8x8</h3>
+          <img src="" alt="" />
+        </div>
+        <div class="main__choice-mode">
+          <h3 class="main__choice-mode-title">9x9</h3>
+          <img src="" alt="" />
+        </div>
+      </section>
 
+      <section
+        id="main__player-names"
+        class="main__section"
+        style="display: none"
+      >
+        <h2 class="main__player-names-title">Edit profil</h2>
+        <div class="main__player-names-playerOne">
+          <form action="" class="main__player-names-form">
+            <label for="playerOne" class="main__player-names-label"></label>
+            <input
+              type="text"
+              id="playerOne"
+              class="main__player-names-input"
+              placeholder="Player One"
+            />
+          </form>
+          <div class="main__playerOne-img-container">
+            <img src="./assets/images/profil.png" alt="" />
+          </div>
 
-  </div>
+          <ul class="main__images-list">
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+          </ul>
+        </div>
+        <div class="main__player-names-playerTwo">
+          <form action="" class="main__player-names-form">
+            <label for="playerTwo" class="main__player-names-label"></label>
+            <input
+              type="text"
+              id="playerTwo"
+              class="main__player-names-input"
+              placeholder="Player Two"
+            />
+          </form>
 
-</body>
+          <div class="main__playerTwo-img-container">
+            <img src="./assets/images/profil.png" alt="" />
+          </div>
 
+          <ul class="main__images-list">
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+            <li class="main__images-list-item"></li>
+          </ul>
+        </div>
+
+        <div id="header__btn_play" class="header__btn_play main__btn_ready">
+          Prêt
+        </div>
+      </section>
+
+      <section id="game-container" class="main__section" style="display: none">
+        <h2 class="main__game-mode-title"></h2>
+        <div class="main__game-playerOne">
+          <h3 class="main__game-playerName"></h3>
+          <div class="main__playerOne-img-container">
+            <img src="./assets/images/profil.png" alt="" />
+          </div>
+          <p class="main__game-playerOne-score">Score <span>0</span></p>
+        </div>
+        <div class="main__game-playerTwo">
+          <h3 class="main__game-playerName"></h3>
+          <div class="main__playerOne-img-container">
+            <img src="./assets/images/profil.png" alt="" />
+          </div>
+          <p class="main__game-playerTwo-score">Score <span>5</span></p>
+        </div>
+
+        <div class="game-container__grid"></div>
+      </section>
+    </main>
+    <!-- <script src="./app.js"></script> -->
+    <script src="./david.js"></script>
+  </body>
 </html>
