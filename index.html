@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Morpion</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title>Document</title>
+  <link rel="stylesheet" href="/TP_TicTacToe/css/style.css">
 </head>
-
+ 
 <body>
+ 
   <div id="tuto_game">
     <button class="open_rules" onclick="openRules()">💬</button>
+  </div>
+ 
+  <div id="score">
+  <p id="score1">Score joueur 1: <span>0</span></p>
+  <p id="score2">Score joueur 2: <span>0</span></p>
+  <p id="scoreDraw">Egalités: <span>0</span></p>
+  <button id="resetScore">Mettre les scores à 0</button>
   </div>
 
   <h1>Le jeu du morpion</h1>
@@ -25,28 +33,28 @@
     <div class="game-grid__square"></div>
     <div class="game-grid__square"></div>
   </section>
-
-    <div id="endGame">
-      <input type="button" value="Restart" id="restartButton" onclick="restartButton()" />
-    </div>
-
-    <div id="StatusGame">
-      <div class="player-container">
-        <div class="player">
-          <img src="/assets/R.jfif" alt="Chevalier Igrit" class="player-img">
-          <span class="player-name">Chevalier Igrit</span>
-        </div>
-        <span class="vs">VS</span>
-        <div class="player">
-          <img src="/assets/R.jfif" alt="Monarque des Ombres" class="player-img">
-          <span class="player-name">Monarque des Ombres</span>
-        </div>
+  <div id="endGame">
+    <input type="button" value="Restart" id="restartButton" onclick="restartButton()" />
+  </div>
+ 
+  <div id="StatusGame">
+    <div class="player-container">
+      <div class="player">
+        <img src="/assets/R.jfif" alt="Chevalier Igrit" class="player-img">
+        <span class="player-name">Chevalier Igrit</span>
+      </div>
+      <span class="vs">VS</span>
+      <div class="player">
+        <img src="/assets/R.jfif" alt="Monarque des Ombres" class="player-img">
+        <span class="player-name">Monarque des Ombres</span>
       </div>
     </div>
-    </div>
-
-    <script src="script.js"></script>
-
+  </div>
+ 
+ 
+  </div>
+  <script src="script.js"></script>
+ 
 </body>
-
+ 
 </html>
