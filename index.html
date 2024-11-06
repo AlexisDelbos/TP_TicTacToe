@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Le jeu du morpion</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
 
-  <div id="tuto_game">
-    <button class="open_rules" onclick="openRules()">💬</button>
+  <div id="gameModeSelection" style="text-align: center; margin-top: 50px;">
+    <button onclick="startTwoPlayers()">Jouer à 2 joueurs</button>
+    <button onclick="startVsAI()">Jouer contre l'IA</button>
   </div>
 
   <h1>Le jeu du morpion</h1>
-  <section id="game-grid">
+
+  <section id="game-grid" style="display: none;">
     <div class="game-grid__square"></div>
     <div class="game-grid__square"></div>
     <div class="game-grid__square"></div>
@@ -26,6 +26,7 @@
     <div class="game-grid__square"></div>
     <div class="game-grid__square"></div>
   </section>
+
   <div id="endGame">
     <input type="button" value="Restart" id="restartButton" onclick="restartButton()" />
   </div>
@@ -44,10 +45,7 @@
     </div>
   </div>
 
-
-  </div>
   <script src="script.js"></script>
 
 </body>
-
 </html>

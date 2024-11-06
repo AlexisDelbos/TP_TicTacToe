@@ -1,13 +1,25 @@
+// Sélectionne la grille de jeu et les cases individuelles du jeu
 const gameGrid = document.querySelector("#game-grid");
 const squares = document.querySelectorAll(".game-grid__square");
+
+// Déclare les joueurs et initialise le joueur actuel (X commence)
 const players = ['X', 'O'];
 let currentPlayer = players[0];
+
+// Crée un message pour afficher le statut du jeu (qui joue actuellement)
 const endMessage = document.createElement('h2');
 endMessage.textContent = `X's turn!`;
 endMessage.style.marginTop = '30px';
 endMessage.style.textAlign = 'center';
 gameGrid.after(endMessage);
+
+// Variable pour savoir si quelqu'un a gagné ou si le jeu est terminé
 let someoneWon = false;
+
+// Variable pour savoir si on joue contre l'IA ou à 2 joueurs
+let isAI = false;
+
+// Combinaisons gagnantes possibles pour le morpion (lignes, colonnes et diagonales)
 const winning_combinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -19,7 +31,7 @@ const winning_combinations = [
   [2, 4, 6]
 ];
 
-// Check win
+// Fonction qui vérifie si un joueur a gagné
 function checkWin(currentPlayer) {
   for (let i = 0; i < winning_combinations.length; i++) {
     const [a, b, c] = winning_combinations[i];
@@ -30,34 +42,32 @@ function checkWin(currentPlayer) {
   return false;
 }
 
-// Check nul
+// Fonction qui vérifie si le jeu est un match nul
 function checkTie() {
   for (let i = 0; i < squares.length; i++) {
     if (squares[i].textContent === '') {
-      return false;
+      return false;  
     }
   }
-  return true;
+  return true;  
 }
 
-// Bouton restart
+// Fonction qui réinitialise le jeu après une victoire, une défaite ou un match nul
 function restartButton() {
-  someoneWon = false;
+  someoneWon = false;  
   for (let i = 0; i < squares.length; i++) {
-    squares[i].textContent = '';
+    squares[i].textContent = ''; 
   }
-  endMessage.textContent = `X's turn!`;
-  currentPlayer = players[0];
-}
+  endMessage.textContent = `X's turn!`;  
+  currentPlayer = players[0]; 
 
 // Fonction pour vérifier si une case est vide
 function isCellEmpty(index) {
-  return squares[index].textContent === '';
+  return squares[index].textContent === '';  // Retourne true si la case est vide
 }
 
-// Fonction pour l'IA (choix aléatoire parmi les cases vides)
+// Fonction qui gère le mouvement de l'IA (choix aléatoire d'une case vide pour l'IA)
 function aiMove() {
-
   const emptyCells = [];
   for (let i = 0; i < squares.length; i++) {
     if (isCellEmpty(i)) {
@@ -65,51 +75,70 @@ function aiMove() {
     }
   }
 
-  // Randomise le choix de l'IA
   const randomIndex = Math.floor(Math.random() * emptyCells.length);
   const selectedCell = emptyCells[randomIndex];
 
-  // Place O sur la case random choisi
-  squares[selectedCell].textContent = 'O';
+  squares[selectedCell].textContent = 'O';  
 
-  // Vérifier si l'IA a gagné
   if (checkWin('O')) {
     someoneWon = true;
     endMessage.textContent = `Game over! O wins!`;
     return;
   }
 
-  // Vérifier si c'est un match nul
   if (checkTie()) {
     someoneWon = true;
     endMessage.textContent = `Game is tied!`;
     return;
   }
 
-  // Passer au joueur suivant ("X")
   currentPlayer = 'X';
   endMessage.textContent = `X's turn!`;
 }
 
+// Fonction pour commencer une partie à 2 joueurs
+function startTwoPlayers() {
+  isAI = false;  
+  document.querySelector("#gameModeSelection").style.display = 'none';  
+  gameGrid.style.display = 'grid';  
+  endMessage.textContent = `X's turn!`; 
+}
+
+// Fonction pour commencer une partie contre l'IA
+function startVsAI() {
+  isAI = true; 
+  document.querySelector("#gameModeSelection").style.display = 'none';  
+  gameGrid.style.display = 'grid';  
+  endMessage.textContent = `X's turn!`;  
+}
+
+// Ajoute des écouteurs d'événements sur chaque case du jeu
 for (let i = 0; i < squares.length; i++) {
   squares[i].addEventListener('click', () => {
-    if (someoneWon) return;
-    if (squares[i].textContent !== '') return;
+    if (someoneWon) return;  
+    if (squares[i].textContent !== '') return;  
 
-    squares[i].textContent = 'X';
-    if (checkWin('X')) {
+    squares[i].textContent = currentPlayer;  
+
+    if (checkWin(currentPlayer)) {
       someoneWon = true;
-      endMessage.textContent = `Game over! X wins!`;
+      endMessage.textContent = `Game over! ${currentPlayer} wins!`;
       return;
     }
+
     if (checkTie()) {
       someoneWon = true;
       endMessage.textContent = `Game is tied!`;
       return;
     }
-    currentPlayer = 'O';
-    endMessage.textContent = `O's turn!`;
 
-    aiMove(); 
+    if (isAI && currentPlayer === 'X') {
+      currentPlayer = 'O'; 
+      endMessage.textContent = `O's turn!`;
+      aiMove();  
+    } else {
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';  
+      endMessage.textContent = `${currentPlayer}'s turn!`; 
+    }
   });
 }
