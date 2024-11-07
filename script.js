@@ -42,12 +42,15 @@ function checkTie() {
  
 // Bouton restart
 function restartButton() {
-  someoneWon = false;
-  for (let i = 0; i < squares.length; i++) {
-    squares[i].textContent = '';
-  }
-  endMessage.textContent = `X's turn!`;
-  currentPlayer = players[0];
+
+    stopAnimations();
+
+    someoneWon = false;
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].textContent = '';
+    }
+    endMessage.textContent = `X's turn!`;
+    currentPlayer = players[0];
 }
  
 // Fonction pour vérifier si une case est vide
@@ -80,15 +83,6 @@ function aiMove() {
     scorePlayer2++;
     localStorage.setItem("scorePlayer2", scorePlayer2);
     score2.textContent = scorePlayer2;
-          
-    const defeatClip = document.querySelector(".explosion");
-    const defeatImg = defeatClip.getElementsByTagName("img")[0];
-
-    defeatImg.src = "assets/explosion-large.gif";
-    defeatClip.style.display = "block";
-    defeatClip.style.width = "20vw";
-    defeatClip.style.opacity = "1";
-    defeatClip.style.zIndex = "1";
     
     showDefeat();
     return;
@@ -124,13 +118,7 @@ for (let i = 0; i < squares.length; i++) {
       score1.textContent = scorePlayer1;
 
       const victoryClip = document.querySelector(".fireworks");
-      const victoryImg = victoryClip.getElementsByTagName("img")[0];
-      
-      victoryImg.src = "assets/colorful-explosion.gif";
-      victoryClip.style.display = "block";
-      victoryClip.style.width = "20vw";
-      victoryClip.style.opacity = "1";
-      victoryClip.style.zIndex = "1";
+      const victoryGif = victoryClip.getElementsByTagName("img")[0];
 
       showVictory();
       return;
@@ -161,20 +149,22 @@ const defeatGif = defeatClip.querySelector('img');
 let isAnimating = false;
 
 function showVictory() {
-
+      
+    victoryClip.style.position = 'fixed',
+    victoryClip.style.left = '35rem';
+    victoryClip.style.top = '10rem';
     victoryClip.style.display = 'block';
     victoryClip.style.opacity = '1';
     victoryClip.style.zIndex = '1000';
   
     setTimeout(() => {
         victoryClip.style.display = 'none';
-    }, 3000);
-
+    }, 15000);
 }
 
 function showDefeat() {
     defeatClip.style.position = 'fixed',
-    defeatClip.style.left = '35rem';  // Move 5cm to the left
+    defeatClip.style.left = '35rem';
     defeatClip.style.top = '10rem';
     defeatClip.style.display = 'block';
     defeatClip.style.opacity = '1';
@@ -183,9 +173,16 @@ function showDefeat() {
     setTimeout(() => {
         defeatClip.style.display = 'none';
         defeatClip.style.opacity = '0';
-    }, 3000); 
+    }, 8500); 
 }
-
+function stopAnimations() {
+    // Cacher les animations de victoire et de défaite
+    victoryClip.style.display = 'none';
+    victoryClip.style.opacity = '0';
+    defeatClip.style.display = 'none';
+    defeatClip.style.opacity = '0';
+    isAnimating = false;
+  }
 
 
 // Initialise les scores et le compteur d'égalités à zéro lors de la première partie :
