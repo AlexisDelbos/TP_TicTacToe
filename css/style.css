@@ -133,5 +133,5 @@ color: blueviolet;
 
 #Victory, #Defeat {
   display: none;
-  position: absolute;
+  position:absolute;
 }

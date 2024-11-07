@@ -76,9 +76,21 @@ function aiMove() {
   if (checkWin('O')) {
     someoneWon = true;
     endMessage.textContent = `Game over! O wins!`;
+
     scorePlayer2++;
     localStorage.setItem("scorePlayer2", scorePlayer2);
     score2.textContent = scorePlayer2;
+          
+    const defeatClip = document.querySelector(".explosion");
+    const defeatImg = defeatClip.getElementsByTagName("img")[0];
+
+    defeatImg.src = "assets/explosion-large.gif";
+    defeatClip.style.display = "block";
+    defeatClip.style.width = "20vw";
+    defeatClip.style.opacity = "1";
+    defeatClip.style.zIndex = "1";
+    
+    showDefeat();
     return;
   }
  
@@ -111,14 +123,16 @@ for (let i = 0; i < squares.length; i++) {
       localStorage.setItem("scorePlayer1", scorePlayer1);
       score1.textContent = scorePlayer1;
 
-      const victoryBox = document.querySelector(".fireworks");
-      const victoryImg = victoryBox.getElementsByTagName("img")[0];
+      const victoryClip = document.querySelector(".fireworks");
+      const victoryImg = victoryClip.getElementsByTagName("img")[0];
       
-      victoryImg.src = "assets/logo.png";
-      victoryBox.style.display = "block";
-      victoryBox.style.width = "20vw";
-      victoryBox.style.opacity = "1";
-      victoryBox.style.zIndex = "1";
+      victoryImg.src = "assets/colorful-explosion.gif";
+      victoryClip.style.display = "block";
+      victoryClip.style.width = "20vw";
+      victoryClip.style.opacity = "1";
+      victoryClip.style.zIndex = "1";
+
+      showVictory();
       return;
     }
     if (checkTie()) {
@@ -138,6 +152,39 @@ for (let i = 0; i < squares.length; i++) {
 
 
 
+
+// implementation victoire/défaite
+const victoryClip = document.getElementById('Victory');
+const defeatClip = document.getElementById('Defeat');
+const victoryGif = victoryClip.querySelector('img');
+const defeatGif = defeatClip.querySelector('img');
+let isAnimating = false;
+
+function showVictory() {
+
+    victoryClip.style.display = 'block';
+    victoryClip.style.opacity = '1';
+    victoryClip.style.zIndex = '1000';
+  
+    setTimeout(() => {
+        victoryClip.style.display = 'none';
+    }, 3000);
+
+}
+
+function showDefeat() {
+    defeatClip.style.position = 'fixed',
+    defeatClip.style.left = '35rem';  // Move 5cm to the left
+    defeatClip.style.top = '10rem';
+    defeatClip.style.display = 'block';
+    defeatClip.style.opacity = '1';
+    defeatClip.style.zIndex = '1000';
+
+    setTimeout(() => {
+        defeatClip.style.display = 'none';
+        defeatClip.style.opacity = '0';
+    }, 3000); 
+}
 
 
 
@@ -208,7 +255,7 @@ function resetScore() {
     resetButton.style.height = '3rem';
 
     resetButton.addEventListener('mouseenter', function() {
-//ajouter le hover
+//ajoute le hover
         resetButton.style.backgroundColor = 'lightcoral';
         resetButton.style.color = 'white';
         resetButton.style.transform = 'scale(1.1)';
@@ -223,3 +270,5 @@ function resetScore() {
         resetButton.style.transform = 'scale(1)';
         resetButton.style.boxShadow = 'none';
     });
+
+    
