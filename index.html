@@ -9,17 +9,20 @@
 </head>
  
 <body>
- 
+ <section class="Head">
   <div id="tuto_game">
     <button class="open_rules" onclick="openRules()">💬</button>
   </div>
  
-  <div id="score">
-  <p id="score1">Score joueur 1: <span>0</span></p>
-  <p id="score2">Score joueur 2: <span>0</span></p>
-  <p id="scoreDraw">Egalités: <span>0</span></p>
-  <button id="resetScore">Mettre les scores à 0</button>
+  <div id="score" aria-label="suivi des scores">
+    <p id="score1">Score joueur 1: <span>0</span></p>
+    <p id="score2">Score joueur 2: <span>0</span></p>
+    <p id="scoreDraw">Egalités: <span>0</span></p>
+    </div>
+    <div>
+    <button id="resetScore">Mettre les scores à 0</button>
   </div>
+</section>
 
   <h1>Le jeu du morpion</h1>
   <section id="game-grid">
@@ -32,6 +35,12 @@
     <div class="game-grid__square"></div>
     <div class="game-grid__square"></div>
     <div class="game-grid__square"></div>
+
+    <!-- audiovisuel pour la victoire, défaite, ou égalité -->
+    <div id="Victory" class="fireworks"><img src="assets/logo.jpg" alt="Feux d'artifices"></div>
+    <div id="Defeat" class="explosion"><img src="assets/outspace1.jfif" alt="Feux d'artifices"></div>
+    <div></div><audio id="draw-sound" src="draw.mp3"></audio></div>
+  </div>
   </section>
   <div id="endGame">
     <input type="button" value="Restart" id="restartButton" onclick="restartButton()" />
@@ -51,8 +60,6 @@
     </div>
   </div>
  
- 
-  </div>
   <script src="script.js"></script>
  
 </body>

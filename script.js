@@ -106,9 +106,19 @@ for (let i = 0; i < squares.length; i++) {
     if (checkWin('X')) {
       someoneWon = true;
       endMessage.textContent = `Game over! X wins!`;
+
       scorePlayer1++;
       localStorage.setItem("scorePlayer1", scorePlayer1);
       score1.textContent = scorePlayer1;
+
+      const victoryBox = document.querySelector(".fireworks");
+      const victoryImg = victoryBox.getElementsByTagName("img")[0];
+      
+      victoryImg.src = "assets/logo.png";
+      victoryBox.style.display = "block";
+      victoryBox.style.width = "20vw";
+      victoryBox.style.opacity = "1";
+      victoryBox.style.zIndex = "1";
       return;
     }
     if (checkTie()) {
@@ -173,7 +183,7 @@ if (!localStorage.getItem("scoreDraw")) {
 
 //bouton reset score
 let buttonScore = document.querySelector("#score");
-buttonScore.addEventListener("click", resetScore);
+buttonScore.addEventListener("click", resetScore);  
 
 //reset score function
 function resetScore() {
@@ -189,3 +199,27 @@ function resetScore() {
     score2.textContent = scorePlayer2;
     scoreDrawPrint.textContent = scoreDraw;
   }
+
+  const resetButton = document.getElementById('resetScore');
+
+    resetButton.style.backgroundColor = 'pink';
+    resetButton.style.color = 'black';
+    resetButton.style.borderRadius = '0.5rem';
+    resetButton.style.height = '3rem';
+
+    resetButton.addEventListener('mouseenter', function() {
+//ajouter le hover
+        resetButton.style.backgroundColor = 'lightcoral';
+        resetButton.style.color = 'white';
+        resetButton.style.transform = 'scale(1.1)';
+        resetButton.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+        resetButton.style.cursor = 'pointer';
+    });
+
+// Enlever l'effet hover
+    resetButton.addEventListener('mouseleave', function() {
+        resetButton.style.backgroundColor = 'pink';
+        resetButton.style.color = 'black';
+        resetButton.style.transform = 'scale(1)';
+        resetButton.style.boxShadow = 'none';
+    });
