@@ -318,13 +318,55 @@ body {
 }
 
 .game-container__grid-square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
+  font-size: 3rem; 
+  text-align: center;
+  line-height: 100%; 
   background: #03204f;
   box-shadow: 4px 4px 10px #010d20, -4px -4px 10px #05337e;
 }
+
 
 .game-container__grid-square:hover {
   border-radius: 10px;
   background: #03204f;
   box-shadow: inset 4px 4px 10px #010d20, inset -4px -4px 10px #05337e;
+}
+
+#main__player-names .header__btn_play_ia {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  border-radius: 10px;
+  background: #03204f;
+  box-shadow: 5px 5px 10px #010d20, -5px -5px 10px #05337e;
+  top: 110px;  
+}
+
+#main__player-names .header__btn_play_ia:hover {
+  border-radius: 10px;
+  background: #03204f;
+  box-shadow: inset 5px 5px 10px #010d20, inset -5px -5px 10px #05337e;
+}
+
+#header__btn_play_ia {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  padding: 20px;
+  width: 200px;
+  border-radius: 20px;
+  background: #03204f;
+  box-shadow: 5px 5px 10px #010d20, -5px -5px 10px #05337e;
+  top: 110px;  
+}
+
+#header__btn_play_ia:hover {
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 20px;
+  background: #03204f;
+  box-shadow: inset 5px 5px 10px #010d20, inset -5px -5px 10px #05337e;
 }

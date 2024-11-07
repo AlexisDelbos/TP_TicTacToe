@@ -10,6 +10,7 @@ const arr_profilImages = [
 ];
 
 let completeGameModeName;
+//
 let gameModeSize;
 
 document
@@ -27,18 +28,18 @@ document
     document.querySelector("#main").style.display = "flex";
   });
 
-// choice game mode
+// Choix du mode de jeu
 const elements = document.querySelectorAll(".main__choice-mode");
 elements.forEach((el) => {
   el.addEventListener("click", function () {
     document.querySelector(".main__choice-game").style.display = "none";
     document.querySelector("#main__player-names").style.display = "flex";
     completeGameModeName = this.innerText.trim();
-    gameModeSize = Array.from(this.innerText.trim())[0];
+    gameModeSize = parseInt(completeGameModeName);
   });
 });
 
-// get profil image
+// Charger les images des profils
 const btn_imgPlayerOne = document.querySelectorAll(
   ".main__player-names-playerOne .main__images-list-item"
 );
@@ -87,7 +88,7 @@ btn_imgPlayerTwo.forEach((btn) => {
   });
 });
 
-// btn ready
+// Bouton prêt pour démarrer la partie
 const btn_ready = document.querySelector(".main__btn_ready");
 
 btn_ready.addEventListener("click", function () {
@@ -135,19 +136,12 @@ btn_ready.addEventListener("click", function () {
     ".main__game-playerTwo h3"
   ).innerText = `${playerTwoName}`;
 
-  // image
-  // document.querySelector(
-  //   ".main__playerOne-img-container img"
-  // ).src = `${variable}`;
-  // document.querySelector(
-  //   ".main__playerTwo-img-container img"
-  // ).src = `${variable}`;
-
   createGrid(gameModeSize);
 });
-
 function createGrid(size) {
   const container = document.querySelector(".game-container__grid");
+
+  container.innerHTML = '';
 
   container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
   container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
@@ -155,7 +149,16 @@ function createGrid(size) {
   for (let i = 0; i < size * size; i++) {
     const divEl = document.createElement("div");
     divEl.classList.add("game-container__grid-square");
-
+    divEl.setAttribute("data-index", i);
     container.appendChild(divEl);
   }
+
+  squares = document.querySelectorAll('.game-container__grid-square');
+  squares.forEach(square => {
+    square.textContent = '';
+  });
+
+  gameEnded = false;
+  currentPlayer = 'X';
+  // updateEndMessage();
 }
