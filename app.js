@@ -66,20 +66,9 @@ function checkTie() {
 }
 
 function restartButton() {
-  stopAnimations();
-
   for (let i = 0; i < squares.length; i++) {
     squares[i].textContent = "";
   }
   endMessage.textContent = `X's turn!`;
   currentPlayer = players[0];
-}
-
-function stopAnimations() {
-  // Cacher les animations de victoire et de défaite
-  victoryClip.style.display = 'none';
-  victoryClip.style.opacity = '0';
-  defeatClip.style.display = 'none';
-  defeatClip.style.opacity = '0';
-  isAnimating = false;
 }
