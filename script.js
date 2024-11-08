@@ -109,7 +109,7 @@ btn_ready.addEventListener("click", function () {
   const imageList = document.querySelectorAll(".main__images-list");
   imageList.forEach((list) => (list.style.display = "none"));
   btn_ready.style.display = "none";
-
+  btn_playVsAI.style.display = "none";
   const playerOneContainer = document.querySelector(
     ".main__player-names-playerOne"
   );
@@ -176,14 +176,18 @@ gameGrid.addEventListener("click", (e) => {
   if (gameEnded) return; 
 
   if (e.target && e.target.classList.contains("game-container__grid-square") && e.target.textContent === '') {
-    e.target.textContent = currentPlayer; 
+    e.target.textContent = currentPlayer;
+    e.target.classList.add("active");
+    
     checkWinner(currentPlayer); 
     togglePlayer();
+    
     if (currentPlayer === "O" && isVsAI && !gameEnded) {
       setTimeout(aiMove, 500);
     }
   }
 });
+
 
 
 function togglePlayer() {
@@ -367,15 +371,17 @@ const winning_combinations = {
   ]
 };
 
-console.log(gameModeSize);
 function checkWinner(player) {
+  
   const combinations = winning_combinations[gameModeSize];
 
   for (let combo of combinations) {
     const [a, b, c] = combo;
     if (squares[a].textContent === player && squares[b].textContent === player && squares[c].textContent === player) {
-      gameEnded = true;
-      gameMessage.textContent = `${player} wins!`;
+      showVictory();
+
+     gameEnded = true;
+     // gameMessage.textContent = `${player} wins!`;
       return;
     }
   }
@@ -446,7 +452,29 @@ function startGameVsAI() {
   document.querySelector(".main__game-playerOne h3").textContent = playerOneName;
   document.querySelector(".main__game-playerTwo h3").textContent = playerTwoName;
 
+
   createGrid(gameModeSize);  
 
+
   updateEndMessage();
+}
+
+function showVictory() {
+ 
+  const victoryClip = document.createElement('div');
+  victoryClip.style.position = 'fixed';
+  victoryClip.style.left = '35rem';
+  victoryClip.style.top = '10rem';
+  victoryClip.style.display = 'block';
+  victoryClip.style.opacity = '1';
+  victoryClip.style.zIndex = '1000';
+
+  document.body.appendChild(victoryClip);
+  const victoryGif = document.createElement('img');
+  victoryGif.src = "./assets/colorful-explosion.gif"
+  victoryClip.appendChild(victoryGif);
+
+  setTimeout(() => {
+      victoryClip.style.display = 'none';
+  }, 15000);
 }

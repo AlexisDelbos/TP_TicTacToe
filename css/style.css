@@ -336,6 +336,12 @@ body {
   box-shadow: inset 4px 4px 10px #010d20, inset -4px -4px 10px #05337e;
 }
 
+.game-container__grid-square.active {
+  background: #03204f;
+  box-shadow: inset 4px 4px 10px #010d20, inset -4px -4px 10px #05337e;
+}
+
+
 #main__player-names .header__btn_play_ia {
   position: absolute;
   text-align: center;
