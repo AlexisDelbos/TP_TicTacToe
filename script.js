@@ -384,7 +384,7 @@ function checkWinner(player) {
       if (winnerFound) {
         gameEnded = true;
         if (currentPlayer === "X") {
-          showDefeat();
+
         } else {
         }
     } else {
@@ -477,15 +477,17 @@ function showVictory() {
   victoryClip.style.display = 'block';
   victoryClip.style.opacity = '1';
   victoryClip.style.zIndex = '1000';
- 
+
   document.body.appendChild(victoryClip);
   const victoryGif = document.createElement('img');
+  victoryGif.src = "./assets/colorful-explosion.gif"
   victoryClip.appendChild(victoryGif);
- 
+
   setTimeout(() => {
       victoryClip.style.display = 'none';
   }, 15000);
 }
+
 
 function showDefeat() {
     defeatGif.src = "assets/explosion-large.gif";
@@ -527,6 +529,7 @@ function showDefeat() {
         resetButton.style.boxShadow = 'none';
     });
 }
+
 
 
 /*  // Vérifier si l'IA a gagné
