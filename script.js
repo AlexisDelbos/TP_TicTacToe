@@ -199,7 +199,7 @@ function updateEndMessage() {
     gameMessage.textContent = `${currentPlayer} wins!`;
     showVictory();
   } else {
-    gameMessage.textContent = `${currentPlayer}'s turn!`;
+    // gameMessage.textContent = `${currentPlayer}'s turn!`;
     showDefeat();
   }
 }
@@ -369,11 +369,22 @@ const winning_combinations = {
   ]
 };
 
+let playerOneScore = parseInt(localStorage.getItem("playerOneScore")) || 0;
+let playerTwoScore = parseInt(localStorage.getItem("playerTwoScore")) || 5;
 
+//------------------------------------------------------------------------------------------------
+function updateScoreDisplay() {
+  const playerOneScoreDisplay = document.querySelector(".main__game-playerOne-score span");
+  const playerTwoScoreDisplay = document.querySelector(".main__game-playerTwo-score span");
+
+  playerOneScoreDisplay.textContent = playerOneScore;
+  playerTwoScoreDisplay.textContent = playerTwoScore;
+}
+//-------------------------------------------------------------------------------------------------
 function checkWinner(player) {
-  const currentPlayer = player;
+
   const combinations = winning_combinations[gameModeSize];
-  let winnerFound = false;
+
   
   for (let combo of combinations) {
     const [a, b, c] = combo;
@@ -381,18 +392,25 @@ function checkWinner(player) {
       winnerFound = true;
       gameEnded = true;
       showVictory();
+
       document.querySelector("#restart-button").style.display = "block"; //------------------------------------------------------------------------------------------------
       // gameMessage.textContent = `${player} wins!`;
       if (winnerFound) {
         gameEnded = true;
-        if (currentPlayer === "X") {
-
-        } else {
+        if (player === "X") {
+          playerOneScore++; //------------------------------------------------------------------
+          localStorage.setItem("playerOneScore", playerOneScore);//-----------------------------------------
+          // playerOneScore.textContent = playerOneScore;
+        } else if (player === "O") {
+          playerTwoScore++;
+          localStorage.setItem("playerTwoScore", playerTwoScore);
         }
+        updateScoreDisplay();
     } else {
       if (checkTie()) {
         gameMessage.textContent = "It's a tie!";
         gameEnded = true;
+        endMessage.textContent = `Game is tied!`;
         document.querySelector("#restart-button").addEventListener("click", function() {
           restartGame();
         });
@@ -475,36 +493,30 @@ function startGameVsAI() {
 
   updateEndMessage();
   
-   
-// implementation victoire/défaite
-// const defeatClip = document.getElementById('Defeat');
-// const defeatGif = defeatClip.querySelector('img');
-
-
-
-function showVictory() {
- 
-  const victoryClip = document.createElement('div');
-  victoryClip.style.position = 'fixed';
-  victoryClip.style.left = '35rem';
-  victoryClip.style.top = '10rem';
-  victoryClip.style.display = 'block';
-  victoryClip.style.opacity = '1';
-  victoryClip.style.zIndex = '1000';
-
-  document.body.appendChild(victoryClip);
-  const victoryGif = document.createElement('img');
-  victoryGif.src = "./assets/colorful-explosion.gif"
-  victoryClip.appendChild(victoryGif);
-
-  setTimeout(() => {
-      victoryClip.style.display = 'none';
-  }, 15000);
-}
-
-
-function showDefeat() {
-
+  
+  function showVictory() {
+    
+    const victoryClip = document.createElement('div');
+    victoryClip.style.position = 'fixed';
+    victoryClip.style.left = '35rem';
+    victoryClip.style.top = '10rem';
+    victoryClip.style.display = 'block';
+    victoryClip.style.opacity = '1';
+    victoryClip.style.zIndex = '1000';
+  
+    document.body.appendChild(victoryClip);
+    const victoryGif = document.createElement('img');
+    victoryGif.src = "./assets/colorful-explosion.gif"
+    victoryClip.appendChild(victoryGif);
+  
+    setTimeout(() => {
+        victoryClip.style.display = 'none';
+    }, 15000);
+  }
+  
+  
+  function showDefeat() {
+    
     defeatClip.style.position = 'fixed';
     defeatClip.style.left = '35rem';
     defeatClip.style.top = '10rem';
@@ -515,7 +527,7 @@ function showDefeat() {
     document.body.appendChild(defeatClip);
     const defeatGif = document.createElement('img');
     defeatGif.src = "assets/explosion-large.gif";
-    defeatClip.appendChild(victoryGif);
+    defeatClip.appendChild(defeatGif);
 
     setTimeout(() => {
         defeatClip.style.display = 'none';
@@ -523,74 +535,27 @@ function showDefeat() {
     }, 8500); 
 }
 
-  const resetButton = document.getElementById('resetScore');
+//   const resetButton = document.getElementById('resetScore');
 
-    resetButton.style.backgroundColor = 'pink';
-    resetButton.style.color = 'black';
-    resetButton.style.borderRadius = '0.5rem';
-    resetButton.style.height = '3rem';
+//     resetButton.style.backgroundColor = 'pink';
+//     resetButton.style.color = 'black';
+//     resetButton.style.borderRadius = '0.5rem';
+//     resetButton.style.height = '3rem';
 
-    resetButton.addEventListener('mouseenter', function() {
-//ajoute le hover
-        resetButton.style.backgroundColor = 'lightcoral';
-        resetButton.style.color = 'white';
-        resetButton.style.transform = 'scale(1.1)';
-        resetButton.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
-        resetButton.style.cursor = 'pointer';
-    });
+//     resetButton.addEventListener('mouseenter', function() {
+// //ajoute le hover
+//         resetButton.style.backgroundColor = 'lightcoral';
+//         resetButton.style.color = 'white';
+//         resetButton.style.transform = 'scale(1.1)';
+//         resetButton.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+//         resetButton.style.cursor = 'pointer';
+//     });
 
-// Enlever l'effet hover
-    resetButton.addEventListener('mouseleave', function() {
-        resetButton.style.backgroundColor = 'pink';
-        resetButton.style.color = 'black';
-        resetButton.style.transform = 'scale(1)';
-        resetButton.style.boxShadow = 'none';
-    });
+// // Enlever l'effet hover
+//     resetButton.addEventListener('mouseleave', function() {
+//         resetButton.style.backgroundColor = 'pink';
+//         resetButton.style.color = 'black';
+//         resetButton.style.transform = 'scale(1)';
+//         resetButton.style.boxShadow = 'none';
+//     });
 }
-
-
-
-/*  // Vérifier si l'IA a gagné
-  if (checkWin('O')) {
-    someoneWon = true;
-    endMessage.textContent = `Game over! O wins!`;
-
-    scorePlayer2++;
-    localStorage.setItem("scorePlayer2", scorePlayer2);
-    score2.textContent = scorePlayer2;
-          
-    const defeatClip = document.querySelector(".explosion");
-    const defeatImg = defeatClip.getElementsByTagName("img")[0];
-
-    defeatImg.src = "assets/explosion-large.gif";
-    defeatClip.style.display = "block";
-    defeatClip.style.width = "20vw";
-    defeatClip.style.opacity = "1";
-    defeatClip.style.zIndex = "1";
-    
-    showDefeat();
-    return;
-  }*/
-
-    /*    squares[i].textContent = 'X';
-    if (checkWin('X')) {
-      someoneWon = true;
-      endMessage.textContent = `Game over! X wins!`;
-
-      scorePlayer1++;
-      localStorage.setItem("scorePlayer1", scorePlayer1);
-      score1.textContent = scorePlayer1;
-
-      const victoryClip = document.querySelector(".fireworks");
-      const victoryImg = victoryClip.getElementsByTagName("img")[0];
-      
-      victoryImg.src = "assets/colorful-explosion.gif";
-      victoryClip.style.display = "block";
-      victoryClip.style.width = "20vw";
-      victoryClip.style.opacity = "1";
-      victoryClip.style.zIndex = "1";
-
-      showVictory();
-      return;
-    }*/
-
