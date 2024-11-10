@@ -371,6 +371,21 @@ body {
   box-shadow: inset 5px 5px 10px #010d20, inset -5px -5px 10px #05337e;
 }
 
+.game-container__restart-button {
+  /* display: none; */
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.game-container__restart-button:hover {
+  background-color: #45a049;
+}
+
 /* style pour le score */
 /*
 #score1, #score2, #scoreDraw {

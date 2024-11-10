@@ -369,7 +369,7 @@ const winning_combinations = {
   ]
 };
 
-console.log(gameModeSize);
+
 function checkWinner(player) {
   const currentPlayer = player;
   const combinations = winning_combinations[gameModeSize];
@@ -378,11 +378,13 @@ function checkWinner(player) {
   for (let combo of combinations) {
     const [a, b, c] = combo;
     if (squares[a].textContent === player && squares[b].textContent === player && squares[c].textContent === player) {
+      winnerFound = true;
       gameEnded = true;
-      // gameMessage.textContent = `${player} wins!`;
       showVictory();
+      // gameMessage.textContent = `${player} wins!`;
       if (winnerFound) {
         gameEnded = true;
+        document.querySelector("#restart-button").style.display = "block";
         if (currentPlayer === "X") {
 
         } else {
@@ -391,14 +393,12 @@ function checkWinner(player) {
       if (checkTie()) {
         gameMessage.textContent = "It's a tie!";
         gameEnded = true;
+        document.querySelector("#restart-button").style.display = "block";
       }
     }
   }
 }
 }
-
-
-
 
 function checkTie() {
   return [...squares].every(square => square.textContent !== '');
@@ -417,12 +417,13 @@ function aiMove() {
   togglePlayer();
 }
 
-
 function restartGame() {
   squares.forEach(square => square.textContent = '');
   gameEnded = false;
   currentPlayer = 'X';
+  document.querySelector("#restart-button").style.display = "none";
   updateEndMessage();
+  gameGrid.addEventListener("click", handleGridClick);
 }
 
 function initializeGame(size) {
@@ -490,7 +491,6 @@ function showVictory() {
 
 
 function showDefeat() {
-    defeatGif.src = "assets/explosion-large.gif";
 
     defeatClip.style.position = 'fixed';
     defeatClip.style.left = '35rem';
@@ -498,6 +498,11 @@ function showDefeat() {
     defeatClip.style.display = 'block';
     defeatClip.style.opacity = '1';
     defeatClip.style.zIndex = '1000';
+
+    document.body.appendChild(defeatClip);
+    const defeatGif = document.createElement('img');
+    defeatGif.src = "assets/explosion-large.gif";
+    defeatClip.appendChild(victoryGif);
 
     setTimeout(() => {
         defeatClip.style.display = 'none';
