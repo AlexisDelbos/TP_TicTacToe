@@ -381,10 +381,10 @@ function checkWinner(player) {
       winnerFound = true;
       gameEnded = true;
       showVictory();
+      document.querySelector("#restart-button").style.display = "block"; //------------------------------------------------------------------------------------------------
       // gameMessage.textContent = `${player} wins!`;
       if (winnerFound) {
         gameEnded = true;
-        document.querySelector("#restart-button").style.display = "block";
         if (currentPlayer === "X") {
 
         } else {
@@ -393,7 +393,12 @@ function checkWinner(player) {
       if (checkTie()) {
         gameMessage.textContent = "It's a tie!";
         gameEnded = true;
-        document.querySelector("#restart-button").style.display = "block";
+        document.querySelector("#restart-button").addEventListener("click", function() {
+          restartGame();
+        });
+      }
+      if (gameEnded) {  //------------------------------------------------------------------------------------------------------------------
+        document.querySelector("#restart-button").addEventListener("click", restartGame, { once: true });//------------------------------------------------------------------
       }
     }
   }
@@ -403,17 +408,15 @@ function checkWinner(player) {
 function checkTie() {
   return [...squares].every(square => square.textContent !== '');
 }
+
 function aiMove() {
   if (gameEnded) return;
 
   const emptySquares = Array.from(squares).filter(square => square.textContent === '');
-
   const randomSquare = emptySquares[Math.floor(Math.random() * emptySquares.length)];
-
   randomSquare.textContent = "O";
   
   checkWinner("O");
-
   togglePlayer();
 }
 
@@ -421,8 +424,8 @@ function restartGame() {
   squares.forEach(square => square.textContent = '');
   gameEnded = false;
   currentPlayer = 'X';
-  document.querySelector("#restart-button").style.display = "none";
   updateEndMessage();
+  initializeGame(gameModeSize);
   gameGrid.addEventListener("click", handleGridClick);
 }
 
@@ -440,7 +443,6 @@ function initializeGame(size) {
   updateEndMessage();
 }
 
-
 const btn_playVsAI = document.querySelector("#header__btn_play_ia");
 btn_playVsAI.addEventListener("click", function () {
   isVsAI = true; 
@@ -448,12 +450,16 @@ btn_playVsAI.addEventListener("click", function () {
   document.querySelector("#game-container").style.display = "flex";
   
   startGameVsAI();
+  document.querySelector("#restart-button").style.display = "block"; //-----------------------------------------------------------------------
+  restartGame();//-------------------------------------------------------------------------------------------------------------------------
 });
 
 function startGameVsAI() {
   currentPlayer = "X"; 
   gameEnded = false;
   
+  document.querySelector("#restart-button").style.display = "block";
+
   const playerOneName = document.querySelector("#playerOne").value || "Player One";
   const playerTwoName = "LE SHERMINATOR"; 
 
@@ -461,12 +467,19 @@ function startGameVsAI() {
   document.querySelector(".main__game-playerTwo h3").textContent = playerTwoName;
 
   createGrid(gameModeSize);  
+  const restartButton = document.querySelector("#restart-button"); //-------------------------------
+  restartButton.removeEventListener("click", restartGame); // -------------------------------------------
+  restartButton.addEventListener("click", function() { //------------------------------------------
+    restartGame(); //--------------------------------------------------------------------------------------------
+  });//-------------------------------------------------------------------------------------------------------------------------
 
   updateEndMessage();
+  
    
 // implementation victoire/défaite
 // const defeatClip = document.getElementById('Defeat');
 // const defeatGif = defeatClip.querySelector('img');
+
 
 
 function showVictory() {
