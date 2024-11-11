@@ -329,7 +329,6 @@ body {
   box-shadow: 4px 4px 10px #010d20, -4px -4px 10px #05337e;
 }
 
-
 .game-container__grid-square:hover {
   border-radius: 10px;
   background: #03204f;
@@ -385,43 +384,3 @@ body {
 .game-container__restart-button:hover {
   background-color: #45a049;
 }
-
-/* style pour le score */
-/*
-#score1, #score2, #scoreDraw {
-  flex: 2;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  text-align: center;
-}
-
-#Score p {
-  font-size: 3em;
-  display: inline;
-  margin-left: 1em;
-}
-
-p span {
-  color: rgb(23, 1, 1);
-}
-
-.Head {
-  display: flex;
-  justify-content: space-between;
-}
-
-#score1 {
-  color: yellow;
-}
-
-#score2 {
-  color: red;
-}
-#scoreDraw {
-color: blueviolet;
-}
-
-#Victory, #Defeat {
-  display: none;
-  position:absolute;
-}
-*/

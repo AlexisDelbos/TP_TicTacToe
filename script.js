@@ -78,7 +78,6 @@ btn_imgPlayerOne.forEach((btn) => {
     avatar.alt = `${e.target.alt}`;
   });
 });
-
 btn_imgPlayerTwo.forEach((btn) => {
   btn.addEventListener("click", function (e) {
     const avatar = document.querySelector(".main__playerTwo-img-container img");
@@ -88,7 +87,6 @@ btn_imgPlayerTwo.forEach((btn) => {
   });
 });
 
-// Bouton prêt pour démarrer la partie
 const btn_ready = document.querySelector(".main__btn_ready");
 
 btn_ready.addEventListener("click", function () {
@@ -163,11 +161,10 @@ function createGrid(size) {
   // updateEndMessage();
 }
 
-
-
 let isVsAI = false;  
 const gameGrid = document.querySelector(".game-container__grid");
 const gameMessage = document.querySelector("#game-message");
+const endMessage = document.querySelector('#endMessage');
 let currentPlayer = "X";
 let squares = [];
 let gameEnded = false;
@@ -185,7 +182,6 @@ gameGrid.addEventListener("click", (e) => {
   }
 });
 
-
 function togglePlayer() {
   if (currentPlayer === "X") {
     currentPlayer = "O"; 
@@ -196,11 +192,11 @@ function togglePlayer() {
 
 function updateEndMessage() {
   if (gameEnded) {
+    gameMessage.style.display = "block";
+    endMessage.style.display = "block";
     gameMessage.textContent = `${currentPlayer} wins!`;
-    showVictory();
   } else {
-    // gameMessage.textContent = `${currentPlayer}'s turn!`;
-    showDefeat();
+    endMessage.textContent = `${currentPlayer}'s turn!`;
   }
 }
 
@@ -372,7 +368,7 @@ const winning_combinations = {
 let playerOneScore = parseInt(localStorage.getItem("playerOneScore")) || 0;
 let playerTwoScore = parseInt(localStorage.getItem("playerTwoScore")) || 5;
 
-//------------------------------------------------------------------------------------------------
+
 function updateScoreDisplay() {
   const playerOneScoreDisplay = document.querySelector(".main__game-playerOne-score span");
   const playerTwoScoreDisplay = document.querySelector(".main__game-playerTwo-score span");
@@ -380,45 +376,83 @@ function updateScoreDisplay() {
   playerOneScoreDisplay.textContent = playerOneScore;
   playerTwoScoreDisplay.textContent = playerTwoScore;
 }
-//-------------------------------------------------------------------------------------------------
+
 function checkWinner(player) {
 
   const combinations = winning_combinations[gameModeSize];
-
   
   for (let combo of combinations) {
     const [a, b, c] = combo;
     if (squares[a].textContent === player && squares[b].textContent === player && squares[c].textContent === player) {
-      winnerFound = true;
       gameEnded = true;
       showVictory();
 
-      document.querySelector("#restart-button").style.display = "block"; //------------------------------------------------------------------------------------------------
-      // gameMessage.textContent = `${player} wins!`;
+      document.querySelector("#restart-button").style.display = "block";
+            gameMessage.textContent = `${player} wins!`;
+      gameMessage.style.display = "block";
+      endMessage.textContent = `${player} wins!`;
+      endMessage.style.display = "block";
+
       if (winnerFound) {
         gameEnded = true;
         if (player === "X") {
-          playerOneScore++; //------------------------------------------------------------------
-          localStorage.setItem("playerOneScore", playerOneScore);//-----------------------------------------
-          // playerOneScore.textContent = playerOneScore;
+          playerOneScore++;
+          localStorage.setItem("playerOneScore", playerOneScore);
+                    // playerOneScore.textContent = playerOneScore;
         } else if (player === "O") {
           playerTwoScore++;
           localStorage.setItem("playerTwoScore", playerTwoScore);
         }
         updateScoreDisplay();
+        document.querySelector("#restart-button").style.display = "block";
+        return;
     } else {
       if (checkTie()) {
         gameMessage.textContent = "It's a tie!";
-        gameEnded = true;
+        gameMessage.style.display = "block";
         endMessage.textContent = `Game is tied!`;
+        endMessage.style.display = "block";
+        gameEnded = true;
         document.querySelector("#restart-button").addEventListener("click", function() {
           restartGame();
         });
       }
-      if (gameEnded) {  //------------------------------------------------------------------------------------------------------------------
-        document.querySelector("#restart-button").addEventListener("click", restartGame, { once: true });//------------------------------------------------------------------
+      if (gameEnded) {  
+        document.querySelector("#restart-button").addEventListener("click", restartGame, { once: true });
       }
     }
+function showVictory() {
+    
+    const victoryClip = document.createElement('div');
+    victoryClip.style.position = 'fixed';
+    victoryClip.style.left = '35rem';
+    victoryClip.style.top = '10rem';
+    victoryClip.style.top = '10rem';
+    victoryClip.style.display = 'block';
+    victoryClip.style.opacity = '1';
+    victoryClip.style.zIndex = '1000';
+  
+    document.body.appendChild(victoryClip);
+
+    const victoryGif = document.createElement('img');
+    victoryGif.src = "./assets/colorful-explosion.gif"
+    victoryClip.appendChild(victoryGif);
+    
+    const restartButton = document.querySelector("#restart-button");
+    restartButton.style.zIndex = "2000"; // Ensure button is on top of the victory animation
+    restartButton.style.pointerEvents = "auto";
+
+    document.querySelector("#restart-button").style.display = "block";
+
+  restartButton.addEventListener("click", function() {
+    victoryClip.style.display = 'none'; // Hide the victory animation
+    restartGame(); // Restart the game
+
+    });
+    setTimeout(() => {
+        victoryClip.style.display = 'none';
+    }, 14500);
+  }
   }
 }
 }
@@ -445,8 +479,14 @@ function restartGame() {
   updateEndMessage();
   initializeGame(gameModeSize);
   gameGrid.addEventListener("click", handleGridClick);
+  stopAnimations();
 }
 
+  function stopAnimations() {
+    victoryClip.style.display = 'none';
+    victoryClip.style.opacity = '0';
+    isAnimating = false;
+  }
 function initializeGame(size) {
   gameGrid.innerHTML = '';
   squares = [];
@@ -468,8 +508,8 @@ btn_playVsAI.addEventListener("click", function () {
   document.querySelector("#game-container").style.display = "flex";
   
   startGameVsAI();
-  document.querySelector("#restart-button").style.display = "block"; //-----------------------------------------------------------------------
-  restartGame();//-------------------------------------------------------------------------------------------------------------------------
+  document.querySelector("#restart-button").style.display = "block";
+    restartGame();
 });
 
 function startGameVsAI() {
@@ -485,14 +525,12 @@ function startGameVsAI() {
   document.querySelector(".main__game-playerTwo h3").textContent = playerTwoName;
 
   createGrid(gameModeSize);  
-  const restartButton = document.querySelector("#restart-button"); //-------------------------------
-  restartButton.removeEventListener("click", restartGame); // -------------------------------------------
-  restartButton.addEventListener("click", function() { //------------------------------------------
-    restartGame(); //--------------------------------------------------------------------------------------------
-  });//-------------------------------------------------------------------------------------------------------------------------
+  const restartButton = document.querySelector("#restart-button");
+  restartButton.removeEventListener("click", restartGame);
+  restartButton.addEventListener("click", function() {
+  });
 
-  updateEndMessage();
-  
+  // updateEndMessage();
   
   function showVictory() {
     
@@ -513,9 +551,8 @@ function startGameVsAI() {
         victoryClip.style.display = 'none';
     }, 15000);
   }
-  
-  
-  function showDefeat() {
+
+    function showDefeat() {
     
     defeatClip.style.position = 'fixed';
     defeatClip.style.left = '35rem';
@@ -533,29 +570,5 @@ function startGameVsAI() {
         defeatClip.style.display = 'none';
         defeatClip.style.opacity = '0';
     }, 8500); 
-}
-
-//   const resetButton = document.getElementById('resetScore');
-
-//     resetButton.style.backgroundColor = 'pink';
-//     resetButton.style.color = 'black';
-//     resetButton.style.borderRadius = '0.5rem';
-//     resetButton.style.height = '3rem';
-
-//     resetButton.addEventListener('mouseenter', function() {
-// //ajoute le hover
-//         resetButton.style.backgroundColor = 'lightcoral';
-//         resetButton.style.color = 'white';
-//         resetButton.style.transform = 'scale(1.1)';
-//         resetButton.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
-//         resetButton.style.cursor = 'pointer';
-//     });
-
-// // Enlever l'effet hover
-//     resetButton.addEventListener('mouseleave', function() {
-//         resetButton.style.backgroundColor = 'pink';
-//         resetButton.style.color = 'black';
-//         resetButton.style.transform = 'scale(1)';
-//         resetButton.style.boxShadow = 'none';
-//     });
+  }
 }
